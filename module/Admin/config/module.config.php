@@ -50,6 +50,16 @@ return array(
                     ),
                 ),
             ),
+            'admin-customer' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/admin/customer[/:action][/][:id]',
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Customer',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -77,6 +87,7 @@ return array(
             'Admin\Controller\Login'    => 'Admin\Controller\LoginController',
             'Admin\Controller\Role'     => 'Admin\Controller\RoleController',
             'Admin\Controller\User'     => 'Admin\Controller\UserController',
+            'Admin\Controller\Customer' => 'Admin\Controller\CustomerController',
         ),
     ),
     'view_manager' => array(

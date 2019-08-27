@@ -658,5 +658,10 @@ class CommonService {
     
         return $title;
     }
+
+    public function getStateList(){
+        $stateDb = $this->sm->get('StateTable');
+        return $stateDb->fetchAllState();
+    }
 }
 ?>

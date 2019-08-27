@@ -34,19 +34,14 @@ $logincontainer = new Container('credo');
                               </div>
                               <label class="col-sm-2 col-form-label" for="roleCode">Role Code <span class="mandatory">*</span></label>
                               <div class="col-sm-4">
-                                   <?php
-                                   if ($result->role_code == 'U-A') {
-                                        ?>
-                                        <span class="form-control"><?php echo $result->role_code; ?></span>
-                                        <input type="hidden" name="roleCode" id="roleCode" value="<?php echo $result->role_code; ?>" />
-                                   <?php
-                              } else {
-                                   ?>
-                                        <input type="text" title="Please Enter the Role Code" class="form-control isRequired" id="roleCode" name="roleCode" placeholder="Enter the role code" onblur="checkNameValidation('roles', 'role_code', this,'<?php echo "role_id##" . $result->role_id; ?>', 'The role code that you entered already existss. Please try another code..');" value="<?php echo $result->role_code; ?>" readonly>
-                                   <?php } ?>
+                                   <input type="text" title="Please Enter the Role Code" class="form-control isRequired" id="roleCode" name="roleCode" placeholder="Enter the role code" onblur="checkNameValidation('roles', 'role_code', this,'<?php echo "role_id##" . $result->role_id; ?>', 'The role code that you entered already existss. Please try another code..');" value="<?php echo $result->role_code; ?>" readonly>
                               </div>
                          </div>
                          <div class="form-group row">
+                              <label class="col-sm-2 col-form-label" for="roleDescription">Role Description</label>
+                              <div class="col-sm-4">
+                                   <textarea placeholder="Enter the description" title="Please enter the description" class="form-control" id="roleDescription" name="roleDescription"><?php echo $result->description; ?></textarea>
+                              </div>
                               <label class="col-sm-2 col-form-label" for="roleCode">Status</label>
                               <div class="col-sm-4">
                                    <select class="form-control isRequired" id="roleStatus" name="roleStatus">

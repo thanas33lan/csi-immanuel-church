@@ -6,21 +6,21 @@ $sessionLogin = new Container('user');
 $role = $sessionLogin->roleCode;
 
 $acl = $this->layout()->acl;
-if (isset($acl) && $acl->isAllowed($role, 'Admin\Controller\User', 'edit')) {
-    $editAction = ' {"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center",bSortable:false}';
+if (isset($acl) && $acl->isAllowed($role, 'Admin\Controller\Customer', 'edit')) {
+    $editAction = ' {"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center",bSortable:false}';
 } else {
-    $editAction = ' {"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"}';
+    $editAction = ' {"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"},{"sClass":"center"}';
 }
 ?>
 <div class="bg-body-light">
     <div class="content content-full">
         <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Users</h1>
+            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Customers</h1>
             <nav class="flex-sm-00-auto ml-sm-3" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <?php if (isset($acl) && $acl->isAllowed($role, 'Admin\Controller\User', 'add')) {?>
-                        <a href="<?php echo $this->url('admin-user', array('action' => 'add')); ?>" class="btn btn-hero-primary pull-right" style="margin-top:-5px;"><i class="fa fa-plus"></i>&nbsp;Add New User</a>
+                        <?php if (isset($acl) && $acl->isAllowed($role, 'Admin\Controller\Customer', 'add')) {?>
+                        <a href="<?php echo $this->url('admin-customer', array('action' => 'add')); ?>" class="btn btn-hero-primary pull-right" style="margin-top:-5px;"><i class="fa fa-plus"></i>&nbsp;Add New Customer</a>
                         <?php }?>
                     </li>
                 </ol>
@@ -32,25 +32,26 @@ if (isset($acl) && $acl->isAllowed($role, 'Admin\Controller\User', 'edit')) {
     <div class="block block-rounded block-bordered">
         <div class="block-header block-header-default">
         </div>
-        <div class="block-content block-content-full table-responsive">
-            <table id="userDataTable" class="table table-bordered table-striped table-vcenter">
+        <div class="block-content block-content-full">
+            <table id="customerDataTable" class="table table-bordered table-striped table-vcenter table-responsive">
                 <thead>
                     <tr>
-                        <th>User Name</th>
-                        <th>Gender</th>
+                        <th>Name</th>
                         <th>Email</th>
-                        <th>Role</th>
                         <th>Mobile No.</th>
+                        <th>Church Name</th>
+                        <th>Recceiver Name</th>
+                        <th>Payment Status</th>
                         <th>Added On</th>
                         <th>Status</th>
-                        <?php if (isset($acl) && $acl->isAllowed($role, 'Admin\Controller\User', 'edit')) { ?>
+                        <?php if (isset($acl) && $acl->isAllowed($role, 'Admin\Controller\Customer', 'edit')) { ?>
                         <th>Action</th>
                         <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="8" class="dataTables_empty">Loading data from server</td>
+                        <td colspan="9" class="dataTables_empty">Loading data from server</td>
                     </tr>
                 </tbody>
             </table>
@@ -62,14 +63,14 @@ if (isset($acl) && $acl->isAllowed($role, 'Admin\Controller\User', 'edit')) {
     /* Table initialisation */
     oTable = null;
     $(document).ready(function() {
-        oTable = $('#userDataTable').dataTable({
+        oTable = $('#customerDataTable').dataTable({
             "bAutoWidth": false,
             "bProcessing": true,
             "bServerSide": true,
             "aoColumns": [
                 <?php echo $editAction; ?>
             ],
-            "sAjaxSource": "<?php echo $this->url('admin-user', array('action' => 'index')); ?>",
+            "sAjaxSource": "<?php echo $this->url('admin-customer', array('action' => 'index')); ?>",
             "fnServerData": function(sSource, aoData, fnCallback) {
                 $.ajax({
                     "dataType": 'json',

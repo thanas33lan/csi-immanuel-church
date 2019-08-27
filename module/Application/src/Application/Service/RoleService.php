@@ -37,8 +37,9 @@ class RoleService {
     }
     
     public function getRoleList($parameters){
-           $roleDb = $this->sm->get('RoleTable');
-           return $roleDb->fetchRoleList($parameters);
+        $roleDb = $this->sm->get('RoleTable');
+        $acl = $this->sm->get('AppAcl');
+        return $roleDb->fetchRoleList($parameters, $acl);
            
     }
     

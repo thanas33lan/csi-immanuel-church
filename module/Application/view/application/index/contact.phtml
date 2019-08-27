@@ -1,3 +1,8 @@
+<?php 
+    $config = new \Zend\Config\Reader\Ini();
+    $configResult = $config->fromFile(CONFIG_PATH . '/custom.config.ini');
+    $apiKey = $configResult['map']['apiKey'];
+?>
 <!--================Breadcrumb Area =================-->
 <section class="breadcrumb_area br_image">
     <div class="container">
@@ -13,26 +18,25 @@
 <!--================Breadcrumb Area =================-->
 
 <!--================Contact Area =================-->
-<section class="contact_area section_gap">
+<section class="contact_area section_gap" style=" padding: 75px 0; ">
     <div class="container">
-        <div id="mapBox" class="mapBox" data-lat="40.701083" data-lon="-74.1522848" data-zoom="13" data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia." data-mlat="40.701083" data-mlon="-74.1522848">
-        </div>
-        <div class="row">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.158427787148!2d80.23555791482192!3d12.961712290862392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d0c00d1ee3d%3A0xfc55e8d8595315d8!2sCSI%20Immanuel%20Church!5e0!3m2!1sen!2sin!4v1566840109233!5m2!1sen!2sin" width="1150" height="420" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        <div class="row" style=" padding-top: 40px; ">
             <div class="col-md-3">
                 <div class="contact_info">
                     <div class="info_item">
                         <i class="lnr lnr-home"></i>
-                        <h6>California, United States</h6>
-                        <p>Santa monica bullevard</p>
+                        <h6>CSI IMMANUEL CHURCH</h6>
+                        <p>Elim Nagar 1st Mainroad, Phase-1, Perungudi, Chennai, Tamil Nadu 600096</p>
                     </div>
                     <div class="info_item">
                         <i class="lnr lnr-phone-handset"></i>
-                        <h6><a href="#">00 (440) 9865 562</a></h6>
-                        <p>Mon to Fri 9am to 6 pm</p>
+                        <h6><a href="phone:8122264712">(+91) 81222 64712</a></h6>
+                        <p><a href="phone:9512638470">(+91) 95126 38470</a></p>
                     </div>
                     <div class="info_item">
                         <i class="lnr lnr-envelope"></i>
-                        <h6><a href="#">support@immanuel.com</a></h6>
+                        <h6><a href="mailto:csichurchperungudi@gmail.com">csichurchperungudi@gmail.com</a></h6>
                         <p>Send us your query anytime!</p>
                     </div>
                 </div>
@@ -97,7 +101,7 @@
 </div>
 <!--================End Contact Success and Error message Area =================-->
 <!--gmaps Js-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $apiKey;?>"></script>
 <script src="<?php echo $this->basePath() . '/site/js/gmaps.min.js'; ?>"></script>
 <!-- contact js -->
 <script src="<?php echo $this->basePath() . '/site/js/jquery.form.js'; ?>"></script>

@@ -39,7 +39,8 @@ class UserService {
     
     public function getUserList($parameters) {
         $userDb = $this->sm->get('UserTable');
-        return $userDb->fetchUserList($parameters);
+        $acl = $this->sm->get('AppAcl');
+        return $userDb->fetchUserList($parameters, $acl);
     }
     
     public function getUserDetails($userId) {

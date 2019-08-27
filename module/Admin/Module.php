@@ -6,10 +6,13 @@ use Application\Model\RoleTable;
 use Application\Model\ResourceTable;
 use Application\Model\UserRolesTable;
 use Application\Model\UserTable;
+use Application\Model\CustomerTable;
+use Application\Model\StateTable;
 
 use Application\Service\CommonService;
 use Application\Service\RoleService;
 use Application\Service\UserService;
+use Application\Service\CustomerService;
 
 class Module {
 
@@ -51,6 +54,16 @@ class Module {
                     $table = new UserTable($dbAdapter);
                     return $table;
                 },
+                'CustomerTable' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new CustomerTable($dbAdapter);
+                    return $table;
+                },
+                'StateTable' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new StateTable($dbAdapter);
+                    return $table;
+                },
                 
                 'CommonService' => function($sm) {
                     return new CommonService($sm);
@@ -60,6 +73,9 @@ class Module {
                 },
                 'UserService' => function($sm) {
                     return new UserService($sm);
+                },
+                'CustomerService' => function($sm) {
+                    return new CustomerService($sm);
                 },
             ),
         );

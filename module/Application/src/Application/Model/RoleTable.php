@@ -42,7 +42,7 @@ class RoleTable extends AbstractTableGateway
 		return $this->lastInsertValue;
 	}
 
-	public function fetchRoleList($parameters)
+	public function fetchRoleList($parameters, $acl)
 	{
 		/* Array of database columns which should be read and sent back to DataTables. Use a space where
   * you want to insert a non-database field (for example a counter or static image)
@@ -155,14 +155,22 @@ class RoleTable extends AbstractTableGateway
 			"aaData" => array()
 		);
 
-
+		$sessionLogin = new Container('user');
+        $role = $sessionLogin->roleCode;
+        if ($acl->isAllowed($role, 'Admin\Controller\Role', 'edit')) {
+            $update = true;
+        } else {
+            $update = false;
+        }
 		foreach ($rResult as $aRow) {
 			$row = array();
 			$row[] = ucwords($aRow['role_name']);
 			$row[] = ucwords($aRow['role_code']);
 			$row[] = ucwords($aRow['description']);
 			$row[] = ucwords($aRow['status']);
-			$row[] = '<a href="/admin/role/edit/' . base64_encode($aRow['role_id']) . '" class="btn btn-default" style="margin-right: 2px;" title="Edit"><i class="far fa-edit"></i> Edit</a>';
+			if($update){
+				$row[] = '<a href="/admin/role/edit/' . base64_encode($aRow['role_id']) . '" class="btn btn-default" style="margin-right: 2px;" title="Edit"><i class="far fa-edit"></i> Edit</a>';
+			}
 			$output['aaData'][] = $row;
 		}
 		return $output;

@@ -79,7 +79,7 @@ class UserTable extends AbstractTableGateway
         return $this->update($data, array("user_id" => $userId));
     }
 
-    public function fetchUserList($parameters)
+    public function fetchUserList($parameters, $acl)
     {
         /* Array of database columns which should be read and sent back to DataTables. Use a space where
          * you want to insert a non-database field (for example a counter or static image)
@@ -192,8 +192,13 @@ class UserTable extends AbstractTableGateway
             "iTotalDisplayRecords" => $iFilteredTotal,
             "aaData" => array()
         );
-
-
+        $sessionLogin = new Container('user');
+        $role = $sessionLogin->roleCode;
+        if ($acl->isAllowed($role, 'Admin\Controller\User', 'edit')) {
+            $update = true;
+        } else {
+            $update = false;
+        }
         foreach ($rResult as $aRow) {
             $row = array();
             $row[] = ucwords($aRow['user_name']);
@@ -203,7 +208,9 @@ class UserTable extends AbstractTableGateway
             $row[] = $aRow['contact_no'];
             $row[] = date('d-M-Y H:s A',strtotime($aRow['added_on']));
             $row[] = ucwords($aRow['user_status']);
-            $row[] = '<a href="/admin/user/edit/' . base64_encode($aRow['user_id']) . '" class="btn btn-default" style="margin-right: 2px;" title="Edit"><i class="far fa-edit"></i> Edit</a>';
+            if($update){
+                $row[] = '<a href="/admin/user/edit/' . base64_encode($aRow['user_id']) . '" class="btn btn-default" style="margin-right: 2px;" title="Edit"><i class="far fa-edit"></i> Edit</a>';
+            }
             $output['aaData'][] = $row;
         }
         return $output;

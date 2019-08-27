@@ -68,13 +68,14 @@ var deforayValidator = {
 		return error;
 	},
 	printError: function (error) {
-		alert(error,'err');
+		Dashmix.helpers('notify', {type: 'danger', icon: 'fa fa-times mr-1', message: error});
+		// alert(error,'err');
 		return false;
 	}
 };
 // returns true if the string is not empty
 function isRequired(str){
-    if(str == null || str.length == 0){
+    if(str == null || str.length == 0 || $.trim(str) == ''){
         return true;
     }
     else{
@@ -106,6 +107,91 @@ function isNumeric(str,required){
         return !isNaN(parseFloat(str)) && isFinite(str);
     }
     return true;
+}
+
+// returns true if the number have the 10 digit, only contains 0-9 and is not null
+function isMobile(no,required){
+	var first = no.charAt(0);
+	if(required){
+		if((isNaN(no) == true) || (no == null || no.length != 10) || (first== 1) || (first== 2) || (first== 3) || (first== 4) || (first== 5)){
+			return false;
+		}else{
+			return true;
+		}
+	}else{
+		if(no==""){return true;}
+		if((isNaN(no) == true) || (no.length != 10) || (first== 1) || (first== 2) || (first== 3) || (first== 4) || (first== 5)){
+			return false;
+		}else{
+			return true;
+		}
+	}
+}
+// returns true if the password have the 6 digit and is not null
+function isPassword(no,required){
+	console.log('password');
+	console.log(no.length);
+	if(required){
+		if(no.length < 6) return false;
+		if(no == null ){
+			return false;
+		}else{
+			return true;
+		}
+	}else{
+		if(no==""){return true;}
+		if(no.length < 6){
+			return false;
+		}else{
+			return true;
+		}
+	}
+}
+// returns true if the username have the 3 digit and is not null
+function isUsername(no,required){
+	if(required){
+		if(no.length < 3) return false;
+		if((isNaN(no) == false) || no == null){
+			return false;
+		}else{
+			return true;
+		}
+	}else{
+		if(no==""){return true;}
+		if(no.length < 3) return false;
+		if(isNaN(no) == false){
+			return false;
+		}else{
+			return true;
+		}
+	}
+}
+// returns true if the Bootstrap Selected and is not null
+function isBootstrapSelect(no,required){
+	console.log($('.isBootstrapSelect').val());
+	if(selectb > 0){
+		return true;
+	}else{
+		return false;
+	}
+}
+// returns true if the number have the 6 digit, only contains 0-9 and is not null
+function isPincode(no,required){
+	var first = no.charAt(0);
+	if(required){
+		if((isNaN(no) == true) || (no == null || no.length != 6)){
+			return false;
+		}else{
+			return true;
+		}
+	}else{
+		if(no==""){return true;}
+		if((isNaN(no) == true) || (no.length != 6)){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }
 // returns true if the string only contains characters A-Z or a-z
 function isAlpha(str,required){
@@ -352,6 +438,51 @@ function deforayValidatorInternal(formInputs, useTitleToShowMessage){
 				}
 				else{
 					errorMsg = "Please make sure password and confirm password are same";
+				}
+			}else if(parts[cCount] == "isMobile"){
+				valid = isMobile(formInputs[i].value,required);
+				if(elementTitle != null && elementTitle != "")
+				{
+					errorMsg = elementTitle;
+				}
+				else{
+					errorMsg = "Please make sure your entered mobile number correct or not!";
+				}
+			}else if(parts[cCount] == "isPassword"){
+				valid = isPassword(formInputs[i].value,required);
+				if(elementTitle != null && elementTitle != "")
+				{
+					errorMsg = elementTitle;
+				}
+				else{
+					errorMsg = "Must contain at least 6 or more characters password";
+				}
+			}else if(parts[cCount] == "isUsername"){
+				valid = isUsername(formInputs[i].value,required);
+				if(elementTitle != null && elementTitle != "")
+				{
+					errorMsg = elementTitle;
+				}
+				else{
+					errorMsg = "Must contain at least 3 or more characters username";
+				}
+			}else if(parts[cCount] == "isBootstrapSelect"){
+				valid = isBootstrapSelect();
+				if(elementTitle != null && elementTitle != "")
+				{
+					errorMsg = elementTitle;
+				}
+				else{
+					errorMsg = "Please make sure choosing atleast one zones!";
+				}
+			}else if(parts[cCount] == "isPincode"){
+				valid = isPincode(formInputs[i].value,required);
+				if(elementTitle != null && elementTitle != "")
+				{
+					errorMsg = elementTitle;
+				}
+				else{
+					errorMsg = "Please make sure your entered pincode number correct or not!";
 				}
 			}
 			else{
